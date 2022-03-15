@@ -72,17 +72,13 @@ body {
   color: var(--color-text);
   background: var(--color-background);
 
-  line-height: 1.6;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
   display: flex;
   flex-direction: column;
 
   transition: color 0.5s, background-color 0.5s;
 }
 
+/* key styles */
 .key {
   background-color: hsl(
       var(--hue, 200), 
@@ -134,3 +130,5 @@ body {
   --saturation: 29%;
   --lightness: 43%;
 }
+
+/* guess grid styles */

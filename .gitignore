@@ -30,3 +30,4 @@ coverage
 # Special cases for this workspace
 **/stores/counter.ts
 **/components/HelloWorld.vue
+**/*tests*/HelloWorld.spec.ts

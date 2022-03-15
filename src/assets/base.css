@@ -2,11 +2,9 @@
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
-  --vt-c-white-mute: #f2f2f2;
 
   --vt-c-black: #181818;
   --vt-c-black-soft: #222222;
-  --vt-c-black-mute: #282828;
 
   --vt-c-indigo: #2c3e50;
 
@@ -19,13 +17,16 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
+
+  --wc-c-black-mute: hsl(240, 3%, 7%);
+  --wc-c-white-mute: #f2f2f2;
 }
 
 /* semantic color variables for this project */
 :root {
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--vt-c-white-mute);
+  --color-background-mute: var(--wc-c-white-mute);
 
   --color-border: var(--vt-c-divider-light-2);
   --color-border-hover: var(--vt-c-divider-light-1);
@@ -38,15 +39,15 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: var(--vt-c-black);
+    --color-background: var(--wc-c-black-mute);
     --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--vt-c-black-mute);
+    --color-background-mute: var(--wc-c-black-mute);
 
     --color-border: var(--vt-c-divider-dark-2);
     --color-border-hover: var(--vt-c-divider-dark-1);
 
     --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--vt-c-text-dark-2);
+    --color-text: var(--wc-c-white-mute);
   }
 }
 
@@ -54,21 +55,82 @@
 *::before,
 *::after {
   box-sizing: border-box;
+
   margin: 0;
   position: relative;
-  font-weight: normal;
 }
 
 body {
   min-height: 100vh;
+  margin: 0;
+  padding: 1em;
+
+  font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
+  font-family: Arial;
+  font-weight: normal;
+
   color: var(--color-text);
   background: var(--color-background);
-  transition: color 0.5s, background-color 0.5s;
+
   line-height: 1.6;
-  font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
-    Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  display: flex;
+  flex-direction: column;
+
+  transition: color 0.5s, background-color 0.5s;
+}
+
+.key {
+  background-color: hsl(
+      var(--hue, 200), 
+      var(--saturation, 1%),
+      calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
+    );
+  color: var(--color-text);
+  fill: var(--color-text);
+  text-transform: uppercase;
+  border-radius: 0.25em;
+  cursor: pointer;
+  user-select: none;
+
+  font-size: inherit;
+  grid-column: span 2;
+  border: none;
+  padding: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.key.key-large {
+  grid-column: span 3;
+}
+
+.key.key-small {
+  grid-column: span 1;
+}
+
+.key:hover:not(.key-wrong),
+.key:focus:not(.key-wrong) {
+  --lightness-offset: 10%;
+}
+
+.key.key-wrong {
+  --lightness: 23%;
+}
+
+.key.key-close {
+  --hue: 49;
+  --saturation: 51%;
+  --lightness: 47%;
+}
+
+.key.key-correct {
+  --hue: 115;
+  --saturation: 29%;
+  --lightness: 43%;
 }

@@ -1,5 +1,5 @@
 <template>
-  <button class="key" data-enter>Enter</button>
+  <button class="key key-large" data-enter>Enter</button>
 </template>
 
 <script setup lang="ts"></script>

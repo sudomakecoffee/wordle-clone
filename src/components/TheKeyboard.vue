@@ -10,7 +10,7 @@
     <Key letter="I" />
     <Key letter="O" />
     <Key letter="P" />
-    <div class="space"></div>
+    <div class="key-small"></div>
     <Key letter="A" />
     <Key letter="S" />
     <Key letter="D" />
@@ -20,7 +20,7 @@
     <Key letter="J" />
     <Key letter="K" />
     <Key letter="L" />
-    <div class="space"></div>
+    <div class="key-small"></div>
     <EnterKey />
     <Key letter="Z" />
     <Key letter="X" />
@@ -39,4 +39,12 @@ import DeleteKey from "@/components/keys/DeleteKey.vue";
 import EnterKey from "@/components/keys/EnterKey.vue";
 </script>
 
-<style scoped></style>
+<style>
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(auto, 1.25em));
+  grid-auto-rows: 3em;
+  gap: 0.25em;
+  justify-content: center;
+}
+</style>

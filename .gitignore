@@ -26,3 +26,6 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+
+# Special cases for this workspace
+**/stores/counter.ts

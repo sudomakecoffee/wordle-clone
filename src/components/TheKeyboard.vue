@@ -34,9 +34,9 @@
 </template>
 
 <script setup lang="ts">
-import Key from "@keys/LetterKey.vue";
-import DeleteKey from "@keys/DeleteKey.vue";
-import EnterKey from "@keys/EnterKey.vue";
+import Key from "@/components/keys/LetterKey.vue";
+import DeleteKey from "@/components/keys/DeleteKey.vue";
+import EnterKey from "@/components/keys/EnterKey.vue";
 </script>
 
 <style scoped></style>

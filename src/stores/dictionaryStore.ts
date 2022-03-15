@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import dictionaryData from "../assets/json/dictionary.json";
+import dictionaryData from "@/assets/json/dictionary.json";
 
 export const useDictionaryStore = defineStore("dictionary", {
   state: () => {

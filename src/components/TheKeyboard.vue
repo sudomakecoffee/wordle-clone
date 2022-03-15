@@ -3,9 +3,9 @@
     <Key letter="Q" />
     <Key letter="W" />
     <Key letter="E" />
-    <Key letter="R" class="key-correct" />
-    <Key letter="T" class="key-wrong" />
-    <Key letter="Y" class="key-close" />
+    <Key letter="R" />
+    <Key letter="T" />
+    <Key letter="Y" />
     <Key letter="U" />
     <Key letter="I" />
     <Key letter="O" />

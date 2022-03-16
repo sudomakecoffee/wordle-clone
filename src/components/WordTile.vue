@@ -13,7 +13,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .tile {
   color: var(--color-text);
   background-color: hsl(
@@ -36,6 +36,7 @@ export default defineComponent({
   align-items: center;
 
   user-select: none;
+  text-transform: uppercase;
 }
 
 .tile[data-state="active"] {

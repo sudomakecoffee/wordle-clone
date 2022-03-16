@@ -1,13 +1,18 @@
 <template>
-  <div data-guess-grid class="guess-grid">
+  <div ref="guessGrid" data-guess-grid class="guess-grid">
     <WordTile v-for="t in tileCount" :key="t" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from "vue";
+import { defineComponent, computed, ref } from "vue";
 import { useEventBus } from "@vueuse/core";
-import { gameBusKey, type GameBusData } from "@/use/useGameBus";
+import {
+  GameBusEventTypeEnum,
+  keyboardBusKey,
+  alertBusKey,
+  type GameBusData,
+} from "@/use/useGameBus";
 import WordTile from "@/components/WordTile.vue";
 
 export default defineComponent({
@@ -23,11 +28,10 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const gameBus = useEventBus<GameBusData>(gameBusKey);
-    const busListener = (event: GameBusData) => {
-      console.table(event);
-    };
-    gameBus.on(busListener);
+    const gameBus = useEventBus<GameBusData>(keyboardBusKey);
+    const alertBus = useEventBus<GameBusData>(alertBusKey);
+
+    const guessGrid = ref();
 
     const rows = computed(() => {
       return props.maxGuesses;
@@ -39,7 +43,71 @@ export default defineComponent({
       return rows.value * cols.value;
     });
 
+    const busListener = (event: GameBusData) => {
+      switch (event.eventType) {
+        case "keypress":
+          onKeyPress(event.data);
+          break;
+        case "delete":
+          onDelete();
+          break;
+        case "submit":
+          onSubmit();
+          break;
+        default:
+          break;
+      }
+    };
+    gameBus.on(busListener);
+
+    const onKeyPress = (key?: string) => {
+      const activeTiles = getActiveTiles();
+      if (activeTiles.length >= props.wordLength) {
+        return;
+      }
+      const nextTile = guessGrid.value.querySelector(":not([data-letter])");
+      nextTile.dataset.letter = key?.toLowerCase();
+      nextTile.dataset.state = "active";
+      nextTile.textContent = key;
+    };
+
+    const onDelete = () => {
+      const activeTiles = getActiveTiles();
+      const lastTile = activeTiles[activeTiles.length - 1];
+      if (lastTile == null) {
+        return;
+      }
+
+      lastTile.textContent = "";
+      delete lastTile.dataset.state;
+      delete lastTile.dataset.letter;
+    };
+
+    const onSubmit = () => {
+      const activeTiles = [...getActiveTiles()];
+      if (activeTiles.length !== props.wordLength) {
+        showAlert("Not enough letters");
+        return;
+      }
+    };
+
+    const showAlert = (message: string, duration = 1000) => {
+      const event: GameBusData = {
+        eventType: GameBusEventTypeEnum.alert,
+        data: { message, duration } as never,
+      };
+      alertBus.emit(event);
+    };
+
+    const getActiveTiles = () => {
+      const activeTiles = guessGrid.value.querySelectorAll(
+        "[data-state='active']"
+      );
+      return activeTiles;
+    };
+
     return {
+      guessGrid,
       rows,
       cols,
       tileCount,
@@ -50,7 +118,7 @@ export default defineComponent({
   },
 });
 </script>
-<style>
+<style scoped>
 .guess-grid {
   display: grid;
   justify-content: center;

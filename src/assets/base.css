@@ -110,9 +110,16 @@ body {
   grid-column: span 1;
 }
 
+/* all keys except wrong keys get highlight */
 .key:hover:not(.key-wrong),
 .key:focus:not(.key-wrong) {
   --lightness-offset: 10%;
+}
+
+/* wrong letters on keyboard get outline */
+.key.key-wrong:hover,
+.key.key-wrong:focus {
+  border: 0.05em solid hsl(240, 7%, 69%);
 }
 
 .key.key-wrong {

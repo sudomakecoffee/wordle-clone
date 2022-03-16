@@ -20,6 +20,9 @@
 
   --wc-c-black-mute: hsl(240, 3%, 7%);
   --wc-c-white-mute: #f2f2f2;
+
+  --wc-c-red: hsl(357, 100%, 42%);
+  --wc-c-red-soft: hsl(0, 100%, 86%);
 }
 
 /* semantic color variables for this project */

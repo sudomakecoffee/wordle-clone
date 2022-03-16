@@ -11,14 +11,9 @@ export const useGameStore = defineStore("game", {
       return state.gameOver;
     },
   },
-  actions: {},
 });
 
 // Allow how-reloading
 if (import.meta.hot) {
   import.meta.hot.accept(acceptHMRUpdate(useGameStore, import.meta.hot));
 }
-
-// TODO:
-// Add current word to store for communicating input between keyboard component
-// and guess grid

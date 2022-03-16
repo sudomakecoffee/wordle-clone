@@ -38,9 +38,9 @@ import { defineComponent, onMounted } from "vue";
 import { useEventListener, useEventBus } from "@vueuse/core";
 import { useGameStore } from "@/stores/gameStore";
 import {
-  gameBusKey,
+  GameBusEventTypeEnum,
+  keyboardBusKey,
   type GameBusData,
-  type GameBusEventType,
 } from "@/use/useGameBus";
 import Key from "@/components/keys/LetterKey.vue";
 import DeleteKey from "@/components/keys/DeleteKey.vue";
@@ -49,7 +49,7 @@ import EnterKey from "@/components/keys/EnterKey.vue";
 export default defineComponent({
   setup() {
     const gameStore = useGameStore();
-    const gameBus = useEventBus<GameBusData>(gameBusKey);
+    const gameBus = useEventBus<GameBusData>(keyboardBusKey);
 
     const start = () => {
       useEventListener(document, "click", handleMouseClick);
@@ -62,20 +62,20 @@ export default defineComponent({
         return;
       }
 
-      let type: GameBusEventType;
+      let type: GameBusEventTypeEnum;
       let data = "";
 
       if (e.target.matches("[data-key]")) {
-        type = "keypress";
+        type = GameBusEventTypeEnum.keypress;
         data = e.target.dataset.key;
       }
       // eslint-disable-next-line prettier/prettier
       else if (e.target.matches("[data-enter]")) {
-        type = "submit";
+        type = GameBusEventTypeEnum.submit;
       }
       // eslint-disable-next-line prettier/prettier
       else if (e.target.matches("[data-delete]")) {
-        type = "delete";
+        type = GameBusEventTypeEnum.delete;
       }
       // eslint-disable-next-line prettier/prettier
       else {
@@ -84,7 +84,7 @@ export default defineComponent({
 
       const event: GameBusData = {
         eventType: type,
-        data: data,
+        data: data as never,
       };
       gameBus.emit(event);
     };
@@ -94,18 +94,18 @@ export default defineComponent({
       if (gameStore.isGameOver) {
         return;
       }
-      let type: GameBusEventType;
+      let type: GameBusEventTypeEnum;
       let data = "";
       if (e.key === "Enter") {
-        type = "submit";
+        type = GameBusEventTypeEnum.submit;
       }
       // eslint-disable-next-line prettier/prettier
       else if (e.key === "Backspace" || e.key === "Delete") {
-        type = "delete";
+        type = GameBusEventTypeEnum.delete;
       }
       // eslint-disable-next-line prettier/prettier
-      else if (e.key.match(/[a-z]$/)) {
-        type = "keypress";
+      else if (e.key.match(/^[a-z]$/)) {
+        type = GameBusEventTypeEnum.keypress;
         data = e.key;
       }
       // eslint-disable-next-line prettier/prettier
@@ -115,7 +115,7 @@ export default defineComponent({
 
       const event: GameBusData = {
         eventType: type,
-        data: data,
+        data: data as never,
       };
       gameBus.emit(event);
     };
@@ -134,7 +134,7 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style scoped>
 .keyboard {
   display: grid;
   grid-template-columns: repeat(20, minmax(auto, 1.25em));

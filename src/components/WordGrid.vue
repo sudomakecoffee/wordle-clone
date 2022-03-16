@@ -1,11 +1,13 @@
 <template>
-  <div class="guess-grid">
+  <div data-guess-grid class="guess-grid">
     <WordTile v-for="t in tileCount" :key="t" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, computed } from "vue";
+import { useEventBus } from "@vueuse/core";
+import { gameBusKey, type GameBusData } from "@/use/useGameBus";
 import WordTile from "@/components/WordTile.vue";
 
 export default defineComponent({
@@ -21,6 +23,12 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const gameBus = useEventBus<GameBusData>(gameBusKey);
+    const busListener = (event: GameBusData) => {
+      console.table(event);
+    };
+    gameBus.on(busListener);
+
     const rows = computed(() => {
       return props.maxGuesses;
     });

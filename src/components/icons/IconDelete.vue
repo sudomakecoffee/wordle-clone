@@ -11,3 +11,9 @@
     ></path>
   </svg>
 </template>
+
+<style scoped>
+svg {
+  pointer-events: none;
+}
+</style>

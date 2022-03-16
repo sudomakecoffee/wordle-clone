@@ -1,20 +1,23 @@
 <template>
   <main>
+    <AlertContainer />
     <WordGrid />
     <TheKeyboard />
   </main>
 </template>
 
 <script lang="ts">
+import { defineComponent } from "vue";
+import AlertContainer from "./components/AlertContainer.vue";
 import TheKeyboard from "@/components/TheKeyboard.vue";
 import WordGrid from "@/components/WordGrid.vue";
-import { defineComponent } from "vue";
 
 export default defineComponent({
   setup() {
     return {};
   },
   components: {
+    AlertContainer,
     TheKeyboard,
     WordGrid,
   },

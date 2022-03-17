@@ -65,12 +65,6 @@ jobs:
     if: github.ref_name == 'develop'
     
     steps:
-      - name: Update rsync
-        run: |
-          sudo apt-get update
-          sudo apt-cache madison rsync
-          sudo apt-get install rsync=3.2.3 -V
-
       - name: Pull build output artifact
         uses: actions/download-artifact@main
         with:
@@ -88,7 +82,7 @@ jobs:
           
       - name: Deploy with rsync
         run: |
-          rsync -avz --delete \
+          rsync -avvvz --delete \
           -e 'ssh -p ${{ secrets.TEST_REMOTE_PORT }}' \
           --exclude .git/ --exclude .gitignore \
           $GITHUB_WORKSPACE/dist/ ${{ secrets.TEST_REMOTE_USER }}@${{ secrets.TEST_REMOTE_HOST }}:${{ secrets.TEST_REMOTE_TARGET }}

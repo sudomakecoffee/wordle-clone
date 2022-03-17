@@ -82,6 +82,7 @@ jobs:
           
       - name: Deploy with rsync
         run: |
+          rsync --version
           rsync -avz --delete --progress --dry-run \
           -e 'ssh -p ${{ secrets.TEST_REMOTE_PORT }}' \
           --exclude .git/ --exclude .gitignore \

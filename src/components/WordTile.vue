@@ -28,15 +28,19 @@ export default defineComponent({
       var(--tile-border-lightness, 23%)
     );
 
-  font-size: 2em;
-  font-weight: bold;
-
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  vertical-align: middle;
 
-  user-select: none;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 2rem;
+
+  box-sizing: border-box;
   text-transform: uppercase;
+  user-select: none;
 }
 
 .tile[data-state="active"] {

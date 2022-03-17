@@ -13,7 +13,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 .tile {
   color: var(--color-text);
   background-color: hsl(
@@ -64,5 +64,9 @@ export default defineComponent({
   --tile-bg-hue: 115;
   --tile-bg-saturation: 29%;
   --tile-bg-lightness: 43%;
+}
+
+.tile.shake {
+  animation: shake 250ms ease-in-out;
 }
 </style>

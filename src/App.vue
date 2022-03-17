@@ -1,5 +1,5 @@
 <template>
-  <header></header>
+  <Header />
   <main>
     <WordGrid />
     <TheKeyboard />
@@ -9,6 +9,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import Header from "@/components/TheHeader.vue";
 import AlertContainer from "@/components/AlertContainer.vue";
 import TheKeyboard from "@/components/TheKeyboard.vue";
 import WordGrid from "@/components/WordGrid.vue";
@@ -25,6 +26,7 @@ export default defineComponent({
     };
   },
   components: {
+    Header,
     AlertContainer,
     TheKeyboard,
     WordGrid,

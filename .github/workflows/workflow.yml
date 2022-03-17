@@ -82,7 +82,7 @@ jobs:
           
       - name: Deploy with rsync
         run: |
-          rsync -avz --delete \
+          rsync -avvvz --delete \
           -e 'ssh -p ${{ secrets.TEST_REMOTE_PORT }}' \
           --exclude .git/ --exclude .gitignore \
           $GITHUB_WORKSPACE/dist/ ${{ secrets.TEST_REMOTE_USER }}@${{ secrets.TEST_REMOTE_HOST }}:${{ secrets.TEST_REMOTE_TARGET }}

@@ -36,6 +36,7 @@ export default defineComponent({
 
 <style>
 @import "@/assets/base.css";
+@import "@/assets/animations.css";
 #app {
   height: calc(100vh - var(--header-height));
 }

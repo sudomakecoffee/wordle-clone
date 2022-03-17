@@ -1,7 +1,7 @@
 <template>
   <div id="guess-grid-container">
     <div ref="guessGrid" data-guess-grid class="guess-grid">
-      <div class="row" letters v-for="r in rows" :key="`row-${r}`">
+      <div class="row" v-for="r in rows" :key="`row-${r}`">
         <WordTile v-for="c in cols" :key="`tile-${r}-${c}`" />
       </div>
     </div>
@@ -16,6 +16,7 @@ import {
   keyboardBusKey,
   alertBusKey,
   type GameBusData,
+  type KeyboardBusData,
 } from "@/use/useGameBus";
 import WordTile from "@/components/WordTile.vue";
 
@@ -64,17 +65,17 @@ export default defineComponent({
     };
     gameBus.on(busListener);
 
-    const onKeyPress = (key?: string) => {
+    const onKeyPress = (data?: KeyboardBusData | undefined) => {
       const activeTiles = getActiveTiles();
       if (activeTiles.length >= props.wordLength) {
         return;
       }
-      const nextTile = guessGrid.value
-        .querySelector(".row")
-        .querySelector(":not([data-letter])");
-      nextTile.dataset.letter = key?.toLowerCase();
+
+      const nextRow = getCurrentRow();
+      const nextTile = nextRow.querySelector(":not([data-letter])");
+      nextTile.dataset.letter = (data?.message ?? "").toLowerCase();
       nextTile.dataset.state = "active";
-      nextTile.textContent = key;
+      nextTile.textContent = data?.message ?? "";
     };
 
     const onDelete = () => {
@@ -100,9 +101,14 @@ export default defineComponent({
     const showAlert = (message: string, duration = 1000) => {
       const event: GameBusData = {
         eventType: GameBusEventTypeEnum.alert,
-        data: { message, duration } as never,
+        data: { message, duration },
       };
       alertBus.emit(event);
+    };
+
+    const getCurrentRow = () => {
+      const nextRow = guessGrid.value.querySelector(".row:not([letters])");
+      return nextRow;
     };
 
     const getActiveTiles = () => {

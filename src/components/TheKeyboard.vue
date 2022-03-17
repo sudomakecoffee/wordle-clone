@@ -47,6 +47,7 @@ import {
   GameBusEventTypeEnum,
   keyboardBusKey,
   type GameBusData,
+  type KeyboardBusData,
 } from "@/use/useGameBus";
 import Key from "@/components/keys/LetterKey.vue";
 import DeleteKey from "@/components/keys/DeleteKey.vue";
@@ -69,11 +70,11 @@ export default defineComponent({
       }
 
       let type: GameBusEventTypeEnum;
-      let data = "";
+      let data: KeyboardBusData = {};
 
       if (e.target.matches("[data-key]")) {
         type = GameBusEventTypeEnum.keypress;
-        data = e.target.dataset.key;
+        data = { message: e.target.dataset.key };
       }
       // eslint-disable-next-line prettier/prettier
       else if (e.target.matches("[data-enter]")) {
@@ -90,7 +91,7 @@ export default defineComponent({
 
       const event: GameBusData = {
         eventType: type,
-        data: data as never,
+        data: data,
       };
       gameBus.emit(event);
     };
@@ -101,7 +102,7 @@ export default defineComponent({
         return;
       }
       let type: GameBusEventTypeEnum;
-      let data = "";
+      let data: KeyboardBusData = {};
       if (e.key === "Enter") {
         type = GameBusEventTypeEnum.submit;
       }
@@ -112,7 +113,7 @@ export default defineComponent({
       // eslint-disable-next-line prettier/prettier
       else if (e.key.match(/^[a-z]$/)) {
         type = GameBusEventTypeEnum.keypress;
-        data = e.key;
+        data = { message: e.key };
       }
       // eslint-disable-next-line prettier/prettier
       else {
@@ -121,7 +122,7 @@ export default defineComponent({
 
       const event: GameBusData = {
         eventType: type,
-        data: data as never,
+        data: data,
       };
       gameBus.emit(event);
     };

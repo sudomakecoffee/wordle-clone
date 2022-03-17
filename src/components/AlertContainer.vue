@@ -1,23 +1,34 @@
 <template>
-  <div class="alert-container" data-alert-container></div>
+  <div ref="alertContainer" class="alert-container" data-alert-container></div>
 </template>
 
 <script lang="ts">
 import { type GameBusData, alertBusKey } from "@/use/useGameBus";
 import { useEventBus } from "@vueuse/core";
-import { defineComponent } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   setup() {
     const alertBus = useEventBus<GameBusData>(alertBusKey);
+    const alertContainer = ref();
 
     const alertListener = (event: GameBusData) => {
-      console.log("alert container got alert event");
-      console.table(event);
+      const { message, duration } = event.data as unknown as {
+        message: string;
+        duration: number;
+      };
+      onAlert(message, duration);
     };
     alertBus.on(alertListener);
 
-    return {};
+    const onAlert = (message: string, duration: number) => {
+      console.log(
+        `alert container got event with message '${message}' and duration ${duration}`
+      );
+    };
+    return {
+      alertContainer,
+    };
   },
 });
 </script>

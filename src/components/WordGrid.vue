@@ -98,7 +98,7 @@ export default defineComponent({
       }
     };
 
-    const showAlert = (message: string, duration = 1000) => {
+    const showAlert = (message: string, duration = 500) => {
       const event: GameBusData = {
         eventType: GameBusEventTypeEnum.alert,
         data: { message, duration },

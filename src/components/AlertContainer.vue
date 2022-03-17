@@ -29,6 +29,13 @@ export default defineComponent({
       alertContainer.value.prepend(alert);
       setTimeout(() => {
         alert.classList.add("hide");
+        alert.addEventListener(
+          "transitionend",
+          () => {
+            alert.remove();
+          },
+          { once: true }
+        );
       }, duration);
     };
     return {

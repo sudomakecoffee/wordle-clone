@@ -82,7 +82,6 @@ jobs:
           
       - name: Deploy with rsync
         run: |
-          ln -s $GITHUB_WORKSPACE/dist/ ${{ secrets.TEST_REMOTE_TARGET }}
           rsync -avz --delete --progress \
           -e 'ssh -p ${{ secrets.TEST_REMOTE_PORT }}' \
           --exclude .git/ --exclude .gitignore \
@@ -112,7 +111,7 @@ jobs:
           
       - name: Deploy with rsync
         run: |
-          rsync -avrz --delete \
+          rsync -avz --delete \
           -e 'ssh -p ${{ secrets.PROD_REMOTE_PORT }}' \
           --exclude .git/ --exclude .gitignore \
           $GITHUB_WORKSPACE/dist/ ${{ secrets.PROD_REMOTE_USER }}@${{ secrets.PROD_REMOTE_HOST }}:${{ secrets.PROD_REMOTE_TARGET }}

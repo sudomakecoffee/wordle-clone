@@ -1,6 +1,10 @@
 <template>
-  <div ref="guessGrid" data-guess-grid class="guess-grid">
-    <WordTile v-for="t in tileCount" :key="t" />
+  <div id="guess-grid-container">
+    <div ref="guessGrid" data-guess-grid class="guess-grid">
+      <div class="row" v-for="r in rows" :key="`row-${r}`">
+        <WordTile v-for="c in cols" :key="`tile-${r}-${c}`" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -118,15 +122,29 @@ export default defineComponent({
   },
 });
 </script>
+
 <style scoped>
-.guess-grid {
-  display: grid;
+#guess-grid-container {
+  display: flex;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   flex-grow: 1;
-  grid-template-columns: repeat(5, 4em);
-  grid-template-rows: repeat(6, 4em);
-  gap: 0.25em;
-  margin-bottom: 1em;
+  overflow: hidden;
+}
+.guess-grid {
+  width: 22rem;
+  height: 26.25rem;
+
+  display: grid;
+  grid-template-rows: repeat(6, 1fr);
+  grid-gap: 0.25em;
+  padding: 0.675em;
+  box-sizing: box;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
 }
 </style>

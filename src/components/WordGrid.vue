@@ -63,8 +63,10 @@ export default defineComponent({
           break;
       }
     };
+    // If registered in setup, it gets destroyed automatically on unmount
     gameBus.on(busListener);
 
+    /// Handlers
     const onKeyPress = (data?: KeyboardBusData | undefined) => {
       const activeTiles = getActiveTiles();
       if (activeTiles.length >= props.wordLength) {
@@ -93,11 +95,22 @@ export default defineComponent({
     const onSubmit = () => {
       const activeTiles = [...getActiveTiles()];
       if (activeTiles.length !== props.wordLength) {
-        showAlert("Not enough letters");
+        showAlert("Not enough letters", 1000);
+        activeTiles.forEach((tile) => {
+          tile.classList.add("shake");
+          tile.addEventListener(
+            "animationend",
+            () => {
+              tile.classList.remove("shake");
+            },
+            { once: true }
+          );
+        });
         return;
       }
     };
 
+    /// Actions
     const showAlert = (message: string, duration = 500) => {
       const event: GameBusData = {
         eventType: GameBusEventTypeEnum.alert,

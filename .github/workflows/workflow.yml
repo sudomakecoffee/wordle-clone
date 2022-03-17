@@ -69,6 +69,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt install --only-upgrade rsync
+          rsync --version
           
       - name: Pull build output artifact
         uses: actions/download-artifact@main
@@ -87,6 +88,7 @@ jobs:
           
       - name: Deploy with rsync
         run: |
+          rsync --version
           rsync -avz --delete --progress --dry-run \
           -e 'ssh -p ${{ secrets.TEST_REMOTE_PORT }}' \
           --exclude .git/ --exclude .gitignore \

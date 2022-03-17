@@ -18,5 +18,14 @@ export enum GameBusEventTypeEnum {
 // Event data being emitted/handled
 export interface GameBusData {
   eventType?: GameBusEventTypeEnum;
-  data?: never;
+  data?: KeyboardBusData | AlertBusData;
+}
+
+export interface KeyboardBusData {
+  message?: string;
+}
+
+export interface AlertBusData {
+  message?: string;
+  duration?: number;
 }

@@ -21,10 +21,15 @@ export default defineComponent({
     };
     alertBus.on(alertListener);
 
-    const onAlert = (message: string, duration: number) => {
-      console.log(
-        `alert container got event with message '${message}' and duration ${duration}`
-      );
+    const onAlert = (message: string, duration = 500) => {
+      const alert = document.createElement("div");
+      alert.textContent = message;
+      alert.classList.add("alert", "error");
+
+      alertContainer.value.prepend(alert);
+      setTimeout(() => {
+        alert.classList.add("hide");
+      }, duration);
     };
     return {
       alertContainer,
@@ -33,7 +38,7 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
+<style>
 .alert-container {
   position: fixed;
   top: 10vh;

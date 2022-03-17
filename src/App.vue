@@ -1,9 +1,9 @@
 <template>
+  <header></header>
   <main>
-    <p>Word of the day: {{ answerStore.today }}</p>
-    <AlertContainer />
     <WordGrid />
     <TheKeyboard />
+    <AlertContainer />
   </main>
 </template>
 
@@ -34,4 +34,35 @@ export default defineComponent({
 
 <style>
 @import "@/assets/base.css";
+#app {
+  height: calc(100vh - var(--header-height));
+}
+
+main {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  padding: 0 1rem;
+
+  height: var(--header-height);
+
+  border-bottom: 1px solid
+    hsl(
+      var(--tile-border-hue, 240),
+      var(--tile-border-saturation, 2%),
+      var(--tile-border-lightness, 23%)
+    );
+}
 </style>

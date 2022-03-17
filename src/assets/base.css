@@ -37,7 +37,8 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
-  --section-gap: 160px;
+  --header-height: 50px;
+  --keyboard-height: 200px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,7 +67,6 @@
 body {
   min-height: 100vh;
   margin: 0;
-  padding: 1em;
 
   font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
   font-family: Arial;
@@ -74,9 +74,6 @@ body {
 
   color: var(--color-text);
   background: var(--color-background);
-
-  display: flex;
-  flex-direction: column;
 
   transition: color 0.5s, background-color 0.5s;
 }
@@ -90,27 +87,35 @@ body {
     );
   color: var(--color-text);
   fill: var(--color-text);
-  text-transform: uppercase;
+  
+  font-family: inherit;
+  font-weight: bold;
+
+  border: 0;
   border-radius: 0.25em;
+  padding: 0;
+  margin: 0 6px 0 0;
+  height: 58px;
+  
   cursor: pointer;
   user-select: none;
 
-  font-size: inherit;
-  grid-column: span 2;
-  border: none;
-  padding: 0;
-
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
+
+  text-transform: uppercase;
 }
 
 .key.key-large {
-  grid-column: span 3;
+  flex: 1.5;
 }
 
 .key.key-small {
-  grid-column: span 1;
+  pointer-events: none;
+  background: none;
+  flex: 0.5;
 }
 
 /* all keys except wrong keys get highlight */

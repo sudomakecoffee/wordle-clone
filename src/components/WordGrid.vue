@@ -1,7 +1,7 @@
 <template>
   <div id="guess-grid-container">
     <div ref="guessGrid" data-guess-grid class="guess-grid">
-      <div class="row" v-for="r in rows" :key="`row-${r}`">
+      <div class="row" letters v-for="r in rows" :key="`row-${r}`">
         <WordTile v-for="c in cols" :key="`tile-${r}-${c}`" />
       </div>
     </div>
@@ -69,7 +69,9 @@ export default defineComponent({
       if (activeTiles.length >= props.wordLength) {
         return;
       }
-      const nextTile = guessGrid.value.querySelector(":not([data-letter])");
+      const nextTile = guessGrid.value
+        .querySelector(".row")
+        .querySelector(":not([data-letter])");
       nextTile.dataset.letter = key?.toLowerCase();
       nextTile.dataset.state = "active";
       nextTile.textContent = key;

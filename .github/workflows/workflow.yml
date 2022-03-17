@@ -60,7 +60,7 @@ jobs:
 
   deploy-stage:
     name: Deploy => Staging
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     needs: build
     if: github.ref_name == 'develop'
     

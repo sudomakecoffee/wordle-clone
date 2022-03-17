@@ -20,6 +20,10 @@ jobs:
     outputs:
       short_hash: ${{ steps.get_short_hash.outputs.short_hash }}
     steps:
+      - name: Update rsync
+        run: |
+          sudo apt-get update
+          sudo apt-get install rsync=3.2.3-4ubuntu1 -V
       - name: Checkout source
         uses: actions/checkout@v3
         

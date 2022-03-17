@@ -68,7 +68,7 @@ jobs:
       - name: Attempt to fix rsync issues
         run: |
           sudo apt-get update
-          sudo apt install --upgrade-only rsync
+          sudo apt install --only-upgrade rsync
           
       - name: Pull build output artifact
         uses: actions/download-artifact@main

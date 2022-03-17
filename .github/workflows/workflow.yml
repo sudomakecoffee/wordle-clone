@@ -1,14 +1,14 @@
 name: Build and deploy web application
 on:
-  push:
-    branches:
-      - develop
+#   push:
+#     branches:
+#       - develop
 
-  pull_request:
-    branches:
-      - main
-    types:
-      - closed
+#   pull_request:
+#     branches:
+#       - main
+#     types:
+#       - closed
 
   workflow_dispatch:
 

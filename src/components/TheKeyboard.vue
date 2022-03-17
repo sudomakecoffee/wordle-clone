@@ -1,35 +1,41 @@
 <template>
-  <div class="keyboard">
-    <Key letter="Q" />
-    <Key letter="W" />
-    <Key letter="E" />
-    <Key letter="R" />
-    <Key letter="T" />
-    <Key letter="Y" />
-    <Key letter="U" />
-    <Key letter="I" />
-    <Key letter="O" />
-    <Key letter="P" />
-    <div class="key-small"></div>
-    <Key letter="A" />
-    <Key letter="S" />
-    <Key letter="D" />
-    <Key letter="F" />
-    <Key letter="G" />
-    <Key letter="H" />
-    <Key letter="J" />
-    <Key letter="K" />
-    <Key letter="L" />
-    <div class="key-small"></div>
-    <EnterKey />
-    <Key letter="Z" />
-    <Key letter="X" />
-    <Key letter="C" />
-    <Key letter="V" />
-    <Key letter="B" />
-    <Key letter="N" />
-    <Key letter="M" />
-    <DeleteKey />
+  <div id="keyboard">
+    <div class="keyboard-row">
+      <Key letter="Q" />
+      <Key letter="W" />
+      <Key letter="E" />
+      <Key letter="R" />
+      <Key letter="T" />
+      <Key letter="Y" />
+      <Key letter="U" />
+      <Key letter="I" />
+      <Key letter="O" />
+      <Key letter="P" />
+    </div>
+    <div class="keyboard-row">
+      <div class="key key-small"></div>
+      <Key letter="A" />
+      <Key letter="S" />
+      <Key letter="D" />
+      <Key letter="F" />
+      <Key letter="G" />
+      <Key letter="H" />
+      <Key letter="J" />
+      <Key letter="K" />
+      <Key letter="L" />
+      <div class="key key-small"></div>
+    </div>
+    <div class="keyboard-row">
+      <EnterKey />
+      <Key letter="Z" />
+      <Key letter="X" />
+      <Key letter="C" />
+      <Key letter="V" />
+      <Key letter="B" />
+      <Key letter="N" />
+      <Key letter="M" />
+      <DeleteKey />
+    </div>
   </div>
 </template>
 
@@ -135,11 +141,14 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.keyboard {
-  display: grid;
-  grid-template-columns: repeat(20, minmax(auto, 1.25em));
-  grid-auto-rows: 3em;
-  gap: 0.25em;
-  justify-content: center;
+#keyboard {
+  max-height: var(--keyboard-height);
+  margin: 0 0.5em;
+  user-select: none;
+}
+.keyboard-row {
+  display: flex;
+  width: 100%;
+  margin: 0 auto 0.5rem;
 }
 </style>

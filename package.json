@@ -7,6 +7,7 @@
     "build:stage": "vue-tsc --noEmit && vite build --mode staging",
     "preview": "vite preview --port 5050",
     "test": "vitest run --environment jsdom",
+    "test:ui": "vitest --environment jsdom --ui",
     "typecheck": "vue-tsc --noEmit -p tsconfig.vitest.json --composite false",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
   },
@@ -20,6 +21,7 @@
     "@types/jsdom": "^16.2.14",
     "@types/node": "^16.11.25",
     "@vitejs/plugin-vue": "^2.2.2",
+    "@vitest/ui": "^0.7.4",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^10.0.0",
     "@vue/test-utils": "^2.0.0-rc.18",

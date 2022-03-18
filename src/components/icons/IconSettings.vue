@@ -15,3 +15,10 @@
     />
   </svg>
 </template>
+
+<style scoped>
+svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+</style>

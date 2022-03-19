@@ -105,7 +105,7 @@ jobs:
           key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
           known_hosts: not_necessary
           
-      - name: Add known hosts
+      - name: Add known hosts 
         run: ssh-keyscan -p ${{ secrets.PROD_REMOTE_PORT }} -H ${{ secrets.PROD_REMOTE_HOST }} >> ~/.ssh/known_hosts
           
       - name: Deploy with rsync

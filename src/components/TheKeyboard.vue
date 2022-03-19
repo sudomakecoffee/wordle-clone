@@ -1,39 +1,39 @@
 <template>
   <div id="keyboard">
     <div class="keyboard-row">
-      <Key letter="Q" />
-      <Key letter="W" />
-      <Key letter="E" />
-      <Key letter="R" />
-      <Key letter="T" />
-      <Key letter="Y" />
-      <Key letter="U" />
-      <Key letter="I" />
-      <Key letter="O" />
-      <Key letter="P" />
+      <Key letter="Q" ariaLabel="Q key" />
+      <Key letter="W" ariaLabel="W key" />
+      <Key letter="E" ariaLabel="E key" />
+      <Key letter="R" ariaLabel="R key" />
+      <Key letter="T" ariaLabel="T key" />
+      <Key letter="Y" ariaLabel="Y key" />
+      <Key letter="U" ariaLabel="U key" />
+      <Key letter="I" ariaLabel="I key" />
+      <Key letter="O" ariaLabel="O key" />
+      <Key letter="P" ariaLabel="P key" />
     </div>
     <div class="keyboard-row">
       <div class="key key-small"></div>
-      <Key letter="A" />
-      <Key letter="S" />
-      <Key letter="D" />
-      <Key letter="F" />
-      <Key letter="G" />
-      <Key letter="H" />
-      <Key letter="J" />
-      <Key letter="K" />
-      <Key letter="L" />
+      <Key letter="A" ariaLabel="A key" />
+      <Key letter="S" ariaLabel="S key" />
+      <Key letter="D" ariaLabel="D key" />
+      <Key letter="F" ariaLabel="F key" />
+      <Key letter="G" ariaLabel="G key" />
+      <Key letter="H" ariaLabel="H key" />
+      <Key letter="J" ariaLabel="J key" />
+      <Key letter="K" ariaLabel="K key" />
+      <Key letter="L" ariaLabel="L key" />
       <div class="key key-small"></div>
     </div>
     <div class="keyboard-row">
       <EnterKey />
-      <Key letter="Z" />
-      <Key letter="X" />
-      <Key letter="C" />
-      <Key letter="V" />
-      <Key letter="B" />
-      <Key letter="N" />
-      <Key letter="M" />
+      <Key letter="Z" ariaLabel="Z key" />
+      <Key letter="X" ariaLabel="X key" />
+      <Key letter="C" ariaLabel="C key" />
+      <Key letter="V" ariaLabel="V key" />
+      <Key letter="B" ariaLabel="B key" />
+      <Key letter="N" ariaLabel="N key" />
+      <Key letter="M" ariaLabel="M key" />
       <DeleteKey />
     </div>
   </div>

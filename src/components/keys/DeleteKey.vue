@@ -1,5 +1,5 @@
 <template>
-  <button class="key key-large" aria-label="Backspace key" data-delete>
+  <button class="key key-backspace" aria-label="Backspace key" data-delete>
     <DeleteIcon />
   </button>
 </template>

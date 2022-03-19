@@ -92,7 +92,8 @@ body {
   text-transform: uppercase;
 }
 
-.key.key-large {
+.key.key-enter,
+.key.key-backspace {
   flex: 1.5;
 }
 

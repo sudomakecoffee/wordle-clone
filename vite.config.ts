@@ -4,9 +4,12 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 
 // https://vitejs.dev/config/
-export default defineConfig(({ command }) => {
+export default defineConfig(({ command, mode }) => {
   return {
     base: command === "build" ? "" : "/",
+    build: {
+      minify: command === "build" && mode !== "dev",
+    },
     plugins: [vue()],
     resolve: {
       alias: {

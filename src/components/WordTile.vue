@@ -21,7 +21,7 @@ export default defineComponent({
     var(--tile-bg-saturation, 3%),
     var(--tile-bg-lightness, 7%)
   );
-  border: 0.05em solid
+  border: 1px solid
     hsl(
       var(--tile-border-hue, 240),
       var(--tile-border-saturation, 2%),
@@ -34,6 +34,8 @@ export default defineComponent({
   align-items: center;
   vertical-align: middle;
 
+  aspect-ratio: 1 / 1;
+
   font-size: 2rem;
   font-weight: bold;
   line-height: 2rem;
@@ -41,6 +43,8 @@ export default defineComponent({
   box-sizing: border-box;
   text-transform: uppercase;
   user-select: none;
+
+  transition: transform 250ms linear;
 }
 
 .tile[data-state="active"] {
@@ -48,25 +52,40 @@ export default defineComponent({
 }
 
 .tile[data-state="wrong"] {
-  border: none;
   --tile-bg-lightness: 23%;
+  --tile-border-saturation: 2%;
+  --tile-border-lightness: 23%;
 }
 
 .tile[data-state="close"] {
-  border: none;
   --tile-bg-hue: 49;
   --tile-bg-saturation: 51%;
   --tile-bg-lightness: 47%;
+
+  --tile-border-hue: 49;
+  --tile-border-saturation: 51%;
+  --tile-border-lightness: 47%;
 }
 
 .tile[data-state="correct"] {
-  border: none;
   --tile-bg-hue: 115;
   --tile-bg-saturation: 29%;
   --tile-bg-lightness: 43%;
+
+  --tile-border-hue: 115;
+  --tile-border-saturation: 29%;
+  --tile-border-lightness: 43%;
 }
 
 .tile.shake {
   animation: shake 250ms ease-in-out;
+}
+
+.tile.dance {
+  animation: dance 500ms ease-in-out;
+}
+
+.tile.flip {
+  transform: rotateX(90deg);
 }
 </style>

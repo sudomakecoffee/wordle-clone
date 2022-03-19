@@ -13,18 +13,19 @@ export default defineComponent({
     const alertContainer = ref();
 
     const alertListener = (event: GameBusData) => {
-      const { message, duration } = event.data as unknown as {
+      const { message, duration, modifier } = event.data as unknown as {
         message: string;
         duration: number;
+        modifier: string;
       };
-      onAlert(message, duration);
+      onAlert(message, duration, modifier);
     };
     alertBus.on(alertListener);
 
-    const onAlert = (message: string, duration = 500) => {
+    const onAlert = (message: string, duration = 500, modifier = "error") => {
       const alert = document.createElement("div");
       alert.textContent = message;
-      alert.classList.add("alert", "error");
+      alert.classList.add("alert", modifier);
 
       alertContainer.value.prepend(alert);
       setTimeout(() => {
@@ -68,6 +69,8 @@ export default defineComponent({
   opacity: 1;
   transition: opacity 500ms ease-in-out;
   margin-bottom: 0.5em;
+
+  font-size: 0.75em;
 }
 
 .alert:last-child {

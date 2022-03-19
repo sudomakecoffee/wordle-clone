@@ -13,19 +13,24 @@ export enum GameBusEventTypeEnum {
   submit = "submit",
   delete = "delete",
   alert = "alert",
+  modify_key = "modify_key",
+  check = "check",
 }
 
 // Event data being emitted/handled
 export interface GameBusData {
-  eventType?: GameBusEventTypeEnum;
   data?: KeyboardBusData | AlertBusData;
 }
 
 export interface KeyboardBusData {
-  message?: string;
+  eventType?: GameBusEventTypeEnum;
+  key?: string;
+  modifier?: string;
 }
 
 export interface AlertBusData {
+  eventType?: GameBusEventTypeEnum;
   message?: string;
   duration?: number;
+  modifier?: string;
 }

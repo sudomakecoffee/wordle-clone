@@ -29,6 +29,44 @@ export const useAnswerStore = defineStore("answers", {
     today: (state): string => {
       return getAnswer(state);
     },
+    controlDate: () => {
+      return new Date(2021, 4, 22);
+    },
+  },
+  actions: {
+    evaluate(guess: string, date = new Date()): string {
+      const evaluation = "00000".split("");
+      const target = this.byDate(date);
+      let check = target;
+      const source = guess.split("");
+
+      source.forEach((letter, index) => {
+        if (check.includes(letter)) {
+          evaluation[index] = "1";
+          check = check.replace(letter, "");
+        }
+      });
+      source.forEach((letter, index) => {
+        if (letter === target[index]) {
+          evaluation[index] = "2";
+          check = check.replace(`/${letter}/i`, "");
+        }
+      });
+
+      return evaluation.join("");
+    },
+    mapRankToStyle(rank: string): string {
+      switch (rank) {
+        case "2":
+          return "correct";
+        case "1":
+          return "close";
+        case "0":
+          return "wrong";
+        default:
+          return "";
+      }
+    },
   },
 });
 

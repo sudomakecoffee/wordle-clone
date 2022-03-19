@@ -63,68 +63,86 @@ export default defineComponent({
       useEventListener(document, "keydown", handleKeyPress);
     };
 
+    gameBus.on((event) => {
+      switch (event.data?.eventType) {
+        case GameBusEventTypeEnum.modify_key:
+          handleModifyKey(event.data);
+          break;
+        case GameBusEventTypeEnum.submit:
+          handleSubmit();
+          break;
+        default:
+          return;
+      }
+    });
+
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleMouseClick = (e: any) => {
-      if (gameStore.isGameOver) {
+      if (!gameStore.canInteract) {
         return;
       }
 
-      let type: GameBusEventTypeEnum;
       let data: KeyboardBusData = {};
 
       if (e.target.matches("[data-key]")) {
-        type = GameBusEventTypeEnum.keypress;
-        data = { message: e.target.dataset.key };
+        data.eventType = GameBusEventTypeEnum.keypress;
+        data.key = e.target.dataset.key;
       }
       // eslint-disable-next-line prettier/prettier
       else if (e.target.matches("[data-enter]")) {
-        type = GameBusEventTypeEnum.submit;
+        data.eventType = GameBusEventTypeEnum.submit;
       }
       // eslint-disable-next-line prettier/prettier
       else if (e.target.matches("[data-delete]")) {
-        type = GameBusEventTypeEnum.delete;
+        data.eventType = GameBusEventTypeEnum.delete;
       }
       // eslint-disable-next-line prettier/prettier
       else {
         return;
       }
 
-      const event: GameBusData = {
-        eventType: type,
-        data: data,
-      };
-      gameBus.emit(event);
+      gameBus.emit({ data });
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleKeyPress = (e: any) => {
-      if (gameStore.isGameOver) {
+      if (!gameStore.canInteract) {
         return;
       }
-      let type: GameBusEventTypeEnum;
+
       let data: KeyboardBusData = {};
       if (e.key === "Enter") {
-        type = GameBusEventTypeEnum.submit;
+        data.eventType = GameBusEventTypeEnum.submit;
       }
       // eslint-disable-next-line prettier/prettier
       else if (e.key === "Backspace" || e.key === "Delete") {
-        type = GameBusEventTypeEnum.delete;
+        data.eventType = GameBusEventTypeEnum.delete;
       }
       // eslint-disable-next-line prettier/prettier
       else if (e.key.match(/^[a-z]$/)) {
-        type = GameBusEventTypeEnum.keypress;
-        data = { message: e.key };
+        data.eventType = GameBusEventTypeEnum.keypress;
+        data.key = e.key;
       }
       // eslint-disable-next-line prettier/prettier
       else {
         return;
       }
 
-      const event: GameBusData = {
-        eventType: type,
-        data: data,
-      };
-      gameBus.emit(event);
+      gameBus.emit({ data });
+    };
+
+    const handleModifyKey = (data: KeyboardBusData): void => {
+      const query = `[data-key="${data.key}"i]`;
+      const key = document.querySelector(query);
+      const style = `key-${data.modifier}`;
+
+      if (!key?.classList.contains(style)) {
+        key?.classList.add(style);
+      }
+    };
+
+    const handleSubmit = () => {
+      return;
     };
 
     onMounted(() => {

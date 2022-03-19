@@ -1,11 +1,12 @@
 <template>
   <button class="key" :data-key="keyLetter" :aria-label="keyLabel">
-    {{ letter }}
+    {{ keyLetter }}
   </button>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { propsToAttrMap } from "@vue/shared";
+import { computed, defineComponent } from "vue";
 
 export default defineComponent({
   props: {
@@ -13,8 +14,12 @@ export default defineComponent({
     ariaLabel: { type: String, required: true },
   },
   setup(props) {
-    const keyLetter = ref(props.letter);
-    const keyLabel = ref(props.ariaLabel);
+    const keyLetter = computed(() => {
+      return props.letter;
+    });
+    const keyLabel = computed(() => {
+      return props.ariaLabel;
+    });
 
     return {
       keyLetter,

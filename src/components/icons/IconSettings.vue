@@ -19,7 +19,8 @@
 
 <style scoped>
 svg {
-  width: 1.25rem;
-  height: 1.25rem;
+  width: minmax(0.5rem, 1.25rem);
+  height: minmax(0.5rem, 1.25rem);
+  aspect-ratio: 1 / 1;
 }
 </style>

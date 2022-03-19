@@ -1,76 +1,71 @@
-<script setup lang="ts">
-import TheKeyboard from "@/components/TheKeyboard.vue";
-</script>
-
 <template>
-  <header>
-    <div class="wrapper">Curdle (Wordle Clone) coming soon!</div>
-  </header>
-
+  <Header />
   <main>
+    <WordGrid />
     <TheKeyboard />
+    <AlertContainer />
   </main>
 </template>
 
+<script lang="ts">
+import { defineComponent } from "vue";
+import Header from "@/components/TheHeader.vue";
+import AlertContainer from "@/components/AlertContainer.vue";
+import TheKeyboard from "@/components/TheKeyboard.vue";
+import WordGrid from "@/components/WordGrid.vue";
+import { useAnswerStore } from "@/stores/answerStore";
+import { useDictionaryStore } from "@/stores/dictionaryStore";
+
+export default defineComponent({
+  setup() {
+    const answerStore = useAnswerStore();
+    const dictionaryStore = useDictionaryStore();
+    return {
+      answerStore,
+      dictionaryStore,
+    };
+  },
+  components: {
+    Header,
+    AlertContainer,
+    TheKeyboard,
+    WordGrid,
+  },
+});
+</script>
+
 <style>
 @import "@/assets/base.css";
-
+@import "@/assets/animations.css";
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  height: calc(100vh - var(--header-height));
+}
 
-  font-weight: normal;
+main {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
 }
 
 header {
-  line-height: 1.5;
-}
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  padding: 0 1rem;
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
+  height: var(--header-height);
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
+  border-bottom: 1px solid
+    hsl(
+      var(--tile-border-hue, 240),
+      var(--tile-border-saturation, 2%),
+      var(--tile-border-lightness, 23%)
+    );
 }
 </style>

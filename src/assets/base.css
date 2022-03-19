@@ -20,35 +20,25 @@
 
   --wc-c-black-mute: hsl(240, 3%, 7%);
   --wc-c-white-mute: #f2f2f2;
+
+  --wc-c-red: hsl(357, 100%, 42%);
+  --wc-c-red-soft: hsl(0, 100%, 86%);
 }
 
 /* semantic color variables for this project */
 :root {
-  --color-background: var(--vt-c-white);
-  --color-background-soft: var(--vt-c-white-soft);
-  --color-background-mute: var(--wc-c-white-mute);
+  --color-background: var(--wc-c-black-mute);
+  --color-background-soft: var(--vt-c-black-soft);
+  --color-background-mute: var(--wc-c-black-mute);
 
-  --color-border: var(--vt-c-divider-light-2);
-  --color-border-hover: var(--vt-c-divider-light-1);
+  --color-border: var(--vt-c-divider-dark-2);
+  --color-border-hover: var(--vt-c-divider-dark-1);
 
-  --color-heading: var(--vt-c-text-light-1);
-  --color-text: var(--vt-c-text-light-1);
+  --color-heading: var(--vt-c-text-dark-1);
+  --color-text: var(--wc-c-white-mute);
 
-  --section-gap: 160px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-background: var(--wc-c-black-mute);
-    --color-background-soft: var(--vt-c-black-soft);
-    --color-background-mute: var(--wc-c-black-mute);
-
-    --color-border: var(--vt-c-divider-dark-2);
-    --color-border-hover: var(--vt-c-divider-dark-1);
-
-    --color-heading: var(--vt-c-text-dark-1);
-    --color-text: var(--wc-c-white-mute);
-  }
+  --header-height: 50px;
+  --keyboard-height: 200px;
 }
 
 *,
@@ -63,60 +53,66 @@
 body {
   min-height: 100vh;
   margin: 0;
-  padding: 1em;
 
-  font-size: clamp(0.5rem, 2.5vmin, 1.5rem);
+  font-size: clamp(0.75rem, 2.5vmin + 1rem, 1.5rem);
   font-family: Arial;
   font-weight: normal;
 
   color: var(--color-text);
   background: var(--color-background);
-
-  line-height: 1.6;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  display: flex;
-  flex-direction: column;
-
-  transition: color 0.5s, background-color 0.5s;
 }
 
+/* key styles */
 .key {
   background-color: hsl(
-      var(--hue, 200), 
-      var(--saturation, 1%),
-      calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
-    );
+    var(--hue, 200),
+    var(--saturation, 1%),
+    calc(var(--lightness-offset, 0%) + var(--lightness, 51%))
+  );
   color: var(--color-text);
   fill: var(--color-text);
-  text-transform: uppercase;
+
+  font-family: inherit;
+  font-weight: bold;
+
+  border: 0;
   border-radius: 0.25em;
+  padding: 0;
+  margin: 0 6px 0 0;
+  height: 58px;
+
   cursor: pointer;
   user-select: none;
 
-  font-size: inherit;
-  grid-column: span 2;
-  border: none;
-  padding: 0;
-
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
+
+  text-transform: uppercase;
 }
 
-.key.key-large {
-  grid-column: span 3;
+.key.key-enter,
+.key.key-backspace {
+  flex: 1.5;
 }
 
 .key.key-small {
-  grid-column: span 1;
+  pointer-events: none;
+  background: none;
+  flex: 0.5;
 }
 
+/* all keys except wrong keys get highlight */
 .key:hover:not(.key-wrong),
 .key:focus:not(.key-wrong) {
   --lightness-offset: 10%;
+}
+
+/* wrong letters on keyboard get outline */
+.key.key-wrong:hover,
+.key.key-wrong:focus {
+  border: 0.05em solid hsl(240, 7%, 69%);
 }
 
 .key.key-wrong {
@@ -134,3 +130,5 @@ body {
   --saturation: 29%;
   --lightness: 43%;
 }
+
+/* guess grid styles */

@@ -1,8 +1,8 @@
 name: Build and deploy web application
 on:
-#   push:
-#     branches:
-#       - develop
+  push:
+    branches:
+      - develop
 
   pull_request:
     branches:

@@ -61,6 +61,7 @@ jobs:
   deploy-stage:
     name: Deploy => Staging
     runs-on: ubuntu-latest
+    environment: staging
     needs: build
     if: github.ref_name == 'develop'
     
@@ -74,21 +75,22 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.TEST_SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           known_hosts: not_necessary
           
       - name: Add known hosts
-        run: ssh-keyscan -p ${{ secrets.TEST_REMOTE_PORT }} -H ${{ secrets.TEST_REMOTE_HOST }} >> ~/.ssh/known_hosts
+        run: ssh-keyscan -p ${{ secrets.REMOTE_PORT }} -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
           
       - name: Deploy with rsync
         run: |
           rsync -avz --delete \
-          -e 'ssh -p ${{ secrets.TEST_REMOTE_PORT }}' \
-          $GITHUB_WORKSPACE/dist/ ${{ secrets.TEST_REMOTE_USER }}@${{ secrets.TEST_REMOTE_HOST }}:${{ secrets.TEST_REMOTE_TARGET }}
+          -e 'ssh -p ${{ secrets.REMOTE_PORT }}' \
+          $GITHUB_WORKSPACE/dist/ ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
 
   deploy-prod:
     name: Deploy => Production
     runs-on: ubuntu-latest
+    environment: production
     needs: build
     if: github.ref_name == 'main'
     
@@ -102,14 +104,14 @@ jobs:
       - name: Install SSH key
         uses: shimataro/ssh-key-action@v2
         with:
-          key: ${{ secrets.PROD_SSH_PRIVATE_KEY }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           known_hosts: not_necessary
           
       - name: Add known hosts 
-        run: ssh-keyscan -p ${{ secrets.PROD_REMOTE_PORT }} -H ${{ secrets.PROD_REMOTE_HOST }} >> ~/.ssh/known_hosts
+        run: ssh-keyscan -p ${{ secrets.REMOTE_PORT }} -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
           
       - name: Deploy with rsync
         run: |
           rsync -avz --delete \
-          -e 'ssh -p ${{ secrets.PROD_REMOTE_PORT }}' \
-          $GITHUB_WORKSPACE/dist/ ${{ secrets.PROD_REMOTE_USER }}@${{ secrets.PROD_REMOTE_HOST }}:${{ secrets.PROD_REMOTE_TARGET }}
+          -e 'ssh -p ${{ secrets.REMOTE_PORT }}' \
+          $GITHUB_WORKSPACE/dist/ ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}

@@ -124,7 +124,7 @@ export default defineComponent({
       }
       game.interactionPaused = true;
       // evaluate guess and flip tiles
-      const ranked = answers.evaluate(game.guess, answers.controlDate);
+      const ranked = answers.evaluate(game.guess);
       const row = getCurrentRow();
       game.guessCount++;
       activeTiles.forEach((...params) => flipTile(...params, ranked));
@@ -238,7 +238,7 @@ export default defineComponent({
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const checkWinLose = (tiles: any) => {
-      if (game.checkWin(answers.byDate(answers.controlDate))) {
+      if (game.checkWin(answers.today)) {
         const eventData: AlertBusData = {
           eventType: GameBusEventTypeEnum.alert,
           message: "You win!",
